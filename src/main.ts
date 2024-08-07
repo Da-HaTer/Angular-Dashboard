@@ -4,7 +4,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
-import { routes } from './app/app-routing.module'; // Add this line to import routes
+import { routes } from './app/app-routing.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; // Add this line to import routes
 
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
@@ -15,6 +16,6 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
   bootstrapApplication(AppComponent, {
     providers: [
         // provideRouter(routes),
-        provideHttpClient()
+        provideHttpClient(), provideAnimationsAsync()
     ]
 }).catch(err => console.error(err));

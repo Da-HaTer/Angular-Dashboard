@@ -1,6 +1,45 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input formControlName="username" placeholder="Username">
-  <input formControlName="password" type="password" placeholder="Password">
-  <button type="submit">Login</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()"
+  class="mx-auto w-1/3 p-10 flex flex-col items-center justify-center shadow-2xl transition duration-500 ease-in-out">
+
+
+  <div class="flex flex-col justify-center w-full">
+    <p class="place-self-center text-2xl ">Sign In</p>
+    <mat-form-field class="w-full">
+      <mat-label>Username</mat-label>
+      <input type="text" matInput  formControlName="username" [errorStateMatcher]="matcher" placeholder="Username" >
+      <!-- formControlName="username" -->
+      @if (loginForm.get('username')?.hasError('required')) {
+      <mat-error>Username is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="grow">
+      <mat-label>Password</mat-label>
+      <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" [errorStateMatcher]="matcher" 
+        placeholder="password"> <!-- formControlName="username" -->
+        <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      @if (loginForm.get('password')?.hasError('required')) {
+      <mat-error>Password is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+    @if (option=='Sign up'){
+      <mat-form-field class="grow">
+        <mat-label>Confirm Password</mat-label>
+        <input [type]="hide ? 'password' : 'text'" matInput formControlName="confirmPassword" [errorStateMatcher]="matcher"
+          placeholder="password"> <!-- formControlName="username" -->
+          <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        @if (loginForm.get('confirmPassword')?.hasError('required')) {
+        <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      
+      </mat-form-field>
+    }
+  </div>
+  @if (option=='Sign up'){
+    <div clas=" flex flex-row items-center">Already have an account ? <button (click)="handleClick($event)" mat-button color="primary" type="submit">Sign in</button></div>
+  }
+  @else{
+    <div class="flex flex-row items-center">Don't have an account ? <button (click)="handleClick($event)" mat-button color="primary" type="submit">Sign up</button></div>
+  }
+  <!-- <input formControlName="password" type="password" placeholder="Password"> -->
+  <button mat-flat-button color="primary" class="w-32" type="submit">{{option}}</button>
 </form>
-<div *ngIf="error">{{ error }}</div>

@@ -17,4 +17,12 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { username, password });
   }
+
+  request(query:string ,token: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/query`, { query, token });
+  }
+  logout(): Observable<any> {
+    return {} as Observable<any>;
+    //return this.http.post(`${this.apiUrl}/logout`, {});
+  }
 }
