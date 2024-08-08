@@ -5,13 +5,17 @@ import { AppComponent } from './app.component';
 import { provideHttpClient } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
-import { LinechartComponent } from './components/linechart/linechart.component';
+import { LinechartComponent } from './components/charts/linechart/linechart.component';
 import { NgApexchartsModule } from "ng-apexcharts";
-import { BarchartComponent } from './components/barchart/barchart.component';
-import { RadarchartComponent } from './components/radarchart/radarchart.component';
-import { DoughnutchartComponent } from './components/doughnutchart/doughnutchart.component';
+import { BarchartComponent } from './components/charts/barchart/barchart.component';
+import { RadarchartComponent } from './components/charts/radarchart/radarchart.component';
+import { DoughnutchartComponent } from './components/charts/doughnutchart/doughnutchart.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { AreachartComponent } from './components/charts/areachart/areachart.component';
+import { RadialchartComponent } from './components/charts/radialchart/radialchart.component';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +24,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     RadarchartComponent,
     DoughnutchartComponent,
     DashboardComponent,
+    AreachartComponent,
+    RadialchartComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatIconModule,
+    MatTableModule
 ],
   providers: [
     provideHttpClient()

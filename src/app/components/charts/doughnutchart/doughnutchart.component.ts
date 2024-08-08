@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Input, ViewChild } from "@angular/core";
 import { ChartComponent } from "ng-apexcharts";
 
 import {
@@ -27,7 +27,7 @@ export type ChartOptions = {
 })
 export class DoughnutchartComponent {
   @ViewChild("chart") chart: ChartComponent | any;
-  public chartOptions: Partial<ChartOptions> | any;
+  @Input() public chartOptions: Partial<ChartOptions> | any;
 
   constructor() {
     this.chartOptions = {

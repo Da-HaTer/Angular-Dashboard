@@ -9,8 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Observable, of } from 'rxjs';
-import { response } from 'express';
+import { Router } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -34,13 +33,17 @@ export class LoginComponent {
   matcher = new MyErrorStateMatcher();
   private _token: string ='';
 
-  constructor(private fb: FormBuilder, private authService: AuthService,private _snackBar: MatSnackBar) {
+
+  constructor(private fb: FormBuilder, private authService: AuthService,private _snackBar: MatSnackBar,private router: Router) {
     this.loginForm = this.fb.group({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl(''),
     });
+    console.log(authService.isAuthenticated());
   }  
+  
+  
 
   set token(value: string ) {
     this._token = value;
@@ -84,9 +87,9 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe({
         next: (response: { token: string; }) => {
           localStorage.setItem('token', response.token);
-          console.log(response); 
           // console.log(this.TEST("select * from feedback;",response.token));
           this.openSnackBar("Login successful");
+          this.router.navigate(['/dashboard']);
           // Login successful, redirect to dashboard or other
         },
         error: (err: any) => this.error = err.error
@@ -108,7 +111,6 @@ export class LoginComponent {
       this.authService.register(username, password).subscribe({
         next: (response: { token: string; }) => {
           localStorage.setItem('token', response.token); 
-          console.log(response);
           this.openSnackBar("Registration successful");
           // Registration successful, redirect to dashboard or other
         },
@@ -120,18 +122,6 @@ export class LoginComponent {
       this.error = 'Invalid option';
     }
   }
-  // TEST(query: string,token: any): Promise<any> {
-  //   return new Promise<any>((resolve, reject) => {
-  //     this.authService.request(query, token).subscribe({
-  //       next: (response: any) => {
-  //         resolve(response);
-  //       },
-  //       error: (err: any) => {
-  //         reject(err);
-  //       }
-  //     });
-  //   });
-  // }
 }
 
 

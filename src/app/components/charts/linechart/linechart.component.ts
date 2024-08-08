@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -28,7 +28,7 @@ export type ChartOptions = {
 })
 export class LinechartComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
-  public chartOptions: Partial<ChartOptions> | any;
+  @Input() public chartOptions: Partial<ChartOptions> | any;
 
   constructor() {
     this.chartOptions = {
