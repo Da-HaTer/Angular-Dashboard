@@ -1,47 +1,47 @@
+<div class="flex flex-col mx-auto justify-around mx-48">
 
-<div class="flex flex-row mx-auto justify-around mx-40">
+  <div class="grid grow gap-4 grid-cols-2 grid-flow-row-dense content-start">
+    <app-barchart [chartOptions]=""></app-barchart>
+    <app-areachart></app-areachart>
+    <app-linechart></app-linechart>
+    <app-doughnutchart></app-doughnutchart>
+    <app-radarchart></app-radarchart>
+  </div>
   <mat-accordion>
-  <p class="text-xl font-medium text-center max-w-xl bg-stone-200">Liste des Formateurs</p>
-  <mat-expansion-panel *ngFor="let instructor of instructors let i =index" (opened)=" fetch_Instructor_courses(instructor); setPanelState(i, true);" (closed)="setPanelState(i, false);" class="max-w-2xl">
-  
-    <mat-expansion-panel-header class="bg-stone-200">
-      <mat-icon>expand_{{getPanelState(i) ? 'less' : 'more'}}.</mat-icon>
+    <p class="text-xl font-medium text-center max-w-full bg-stone-200">Liste des Formateurs</p>
+    <mat-expansion-panel *ngFor="let instructor of instructors let i =index"
+      (opened)=" fetch_Instructor_courses(instructor); setPanelState(i, true);" (closed)="setPanelState(i, false);"
+      class="max-w-full">
+
+      <mat-expansion-panel-header class="bg-stone-200">
+        <mat-icon>expand_{{getPanelState(i) ? 'less' : 'more'}}.</mat-icon>
         <mat-panel-title> {{instructor}} </mat-panel-title>
         <mat-panel-description>
           {{instructor.replace(' ','')+"@gmail.com"}}
         </mat-panel-description>
       </mat-expansion-panel-header>
+      <div class="flex flex-col">
+      <app-radarchart></app-radarchart>
       <table mat-table [dataSource]="instructor_data" class="mat-elevation-z8">
-          <!-- Position Column -->
-  <!-- <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.index}} </td>
-  </ng-container> -->
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="Course">
-    <th mat-header-cell *matHeaderCellDef> Formation </th>
-    <td mat-cell *matCellDef="let element"> {{element.course}} </td>
-  </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="Course">
+          <th mat-header-cell *matHeaderCellDef> Formation </th>
+          <td mat-cell *matCellDef="let element"> {{element.course}} </td>
+        </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="Date">
-    <th mat-header-cell *matHeaderCellDef> Date </th>
-    <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="['Course','Date']"></tr>
-  <tr mat-row 
-      (click)="handle_Row(row)"
-      *matRowDef="let row; columns: ['Course','Date'];"
-      class="font-medium border-stone-500 border-0 rounded-xl cursor-pointer hover:border-2 hover:bg-stone-400 bg-secondary hover:bg-opacity-20 duration-200"></tr>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['Course','Date']"></tr>
+        <tr mat-row (click)="handle_Row(row)" *matRowDef="let row; columns: ['Course','Date'];"
+          class="font-medium border-stone-500 border-0 rounded-xl cursor-pointer hover:border-2 hover:bg-stone-400 bg-secondary hover:bg-opacity-20 duration-200">
+        </tr>
       </table>
+      
+      </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <div class="grid grow gap-4 grid-cols-2 grid-flow-row-dense content-start">
-    
-    <app-barchart [chartOptions]=""></app-barchart>
-    <app-linechart ></app-linechart>
-    <app-doughnutchart ></app-doughnutchart>
-    <app-radarchart></app-radarchart>
-  </div>
 </div>

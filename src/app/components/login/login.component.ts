@@ -88,6 +88,7 @@ export class LoginComponent {
         next: (response: { token: string; }) => {
           localStorage.setItem('token', response.token);
           // console.log(this.TEST("select * from feedback;",response.token));
+          console.log("authenticated:",this.authService.isAuthenticated());
           this.openSnackBar("Login successful");
           this.router.navigate(['/dashboard']);
           // Login successful, redirect to dashboard or other
@@ -108,14 +109,15 @@ export class LoginComponent {
       if (username.length < 4) {
         this.error = 'Username must be at least 4 characters';
         return;}
-      this.authService.register(username, password).subscribe({
-        next: (response: { token: string; }) => {
-          localStorage.setItem('token', response.token); 
-          this.openSnackBar("Registration successful");
-          // Registration successful, redirect to dashboard or other
-        },
-        error: (err: any) =>  err.error
-      });
+        this.authService.register(username, password).subscribe({
+          error: (err: any) =>  {
+            if (err.status === 201) {
+              this.openSnackBar("Registration successful");
+              this.option = 'Sign in';
+            }
+            else this.error = "An error occured";
+          }
+        });
 
     }
     else{
