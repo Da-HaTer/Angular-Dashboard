@@ -5,7 +5,8 @@ import {
   ApexChart,
   ApexLegend,
   ApexResponsive,
-  ChartComponent
+  ChartComponent,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -14,6 +15,7 @@ export type ChartOptions = {
   labels: string[];
   colors: string[];
   legend: ApexLegend;
+  title: ApexTitleSubtitle;
   plotOptions: ApexPlotOptions;
   responsive: ApexResponsive | ApexResponsive[];
 };
@@ -62,8 +64,8 @@ export class RadialchartComponent {
         floating: true,
         fontSize: "16px",
         position: "left",
-        offsetX: 50,
-        offsetY: 10,
+        offsetX: 0,
+        offsetY: 25,
         labels: {
           useSeriesColors: true
         },

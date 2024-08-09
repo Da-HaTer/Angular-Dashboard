@@ -8,6 +8,7 @@ import {
   ApexDataLabels,
   ApexYAxis,
   ApexLegend,
+  ApexTitleSubtitle,
   ApexFill
 } from "ng-apexcharts";
 import { AuthService } from "../../../services/auth.service";
@@ -22,6 +23,7 @@ export type ChartOptions = {
   colors: string[];
   legend: ApexLegend;
   fill: ApexFill;
+  title: ApexTitleSubtitle;
 };
 
 @Component({
@@ -68,6 +70,10 @@ export class AreachartComponent {
       legend: {
         position: "top",
         horizontalAlign: "left"
+      },
+      title: {
+        text: "Avis Par Mois",
+        align: "center"
       },
       xaxis: {
         type: "datetime"

@@ -5,8 +5,10 @@ import {
   ChartComponent,
   ApexDataLabels,
   ApexXAxis,
-  ApexPlotOptions
+  ApexPlotOptions,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
+import { title } from "process";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -14,6 +16,7 @@ export type ChartOptions = {
   dataLabels: ApexDataLabels;
   plotOptions: ApexPlotOptions;
   xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
 };
 @Component({
   selector: 'app-barchart',
@@ -23,13 +26,27 @@ export type ChartOptions = {
 export class BarchartComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   @Input() public chartOptions: Partial<ChartOptions> | any;
-  
+  @Input() public data: {columns: Array<string>, data: Array<number>} = {
+    columns: [
+      "South Korea",
+      "Canada",
+      "United Kingdom",
+      "Netherlands",
+      "Italy",
+      "France",
+      "Japan",
+      "United States",
+      "China",
+      "Germany"
+    ],
+    data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+  };
   constructor() {
     this.chartOptions = {
       series: [
         {
           name: "basic",
-          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+          data: this.data.data
         }
       ],
       chart: {
@@ -45,18 +62,7 @@ export class BarchartComponent {
         enabled: true
       },
       xaxis: {
-        categories: [
-          "South Korea",
-          "Canada",
-          "United Kingdom",
-          "Netherlands",
-          "Italy",
-          "France",
-          "Japan",
-          "United States",
-          "China",
-          "Germany"
-        ]
+        categories: this.data.columns
       }
     };
   }
