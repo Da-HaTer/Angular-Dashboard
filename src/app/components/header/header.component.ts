@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
+  settings : boolean = false;
   private authSubscription: Subscription | undefined;
   
   constructor(private authService: AuthService,private cdr: ChangeDetectorRef,private _snackBar: MatSnackBar,private router: Router) {

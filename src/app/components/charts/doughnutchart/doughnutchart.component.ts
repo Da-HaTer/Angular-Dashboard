@@ -7,8 +7,10 @@ import {
   ApexChart,
   ApexFill,
   ApexDataLabels,
-  ApexLegend
+  ApexLegend,
+  ApexTitleSubtitle
 } from "ng-apexcharts";
+import { title } from "process";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -18,6 +20,8 @@ export type ChartOptions = {
   fill: ApexFill;
   legend: ApexLegend;
   dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle
+  colors: string[];
 };
 
 @Component({
@@ -36,11 +40,17 @@ export class DoughnutchartComponent {
         width: 380,
         type: "donut"
       },
+      colors:['#79c97a','#F44336'],
       dataLabels: {
-        enabled: false
+        enabled: true
       },
+      
       fill: {
         type: "gradient"
+      },
+      title: {
+        text: "Donut Chart",
+        align: "cneter"
       },
       legend: {
         formatter: function(val: any, opts: any) {

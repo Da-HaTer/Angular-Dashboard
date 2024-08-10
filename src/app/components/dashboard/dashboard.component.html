@@ -25,13 +25,13 @@
       <table mat-table [dataSource]="instructor_data" class="mat-elevation-z8">
 
         <!-- Name Column -->
-        <!--<ng-container matColumnDef="Course">
+<!--<ng-container matColumnDef="Course">
           <th mat-header-cell *matHeaderCellDef> Formation </th>
           <td mat-cell *matCellDef="let element"> {{element.course}} </td>
         </ng-container>
 
         <!-- Weight Column -->
-        <!--<ng-container matColumnDef="Date">
+<!--<ng-container matColumnDef="Date">
           <th mat-header-cell *matHeaderCellDef> Date </th>
           <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
         </ng-container>
@@ -47,42 +47,32 @@
 </div> -->
 
 <div class="min-h-screen flex flex-col">
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg py-4 px-6 flex justify-between items-center">
-    <h1 class="text-2xl font-bold">CIMS</h1>
-    <nav class="space-x-4">
-      <a href="#" class="hover:underline">Home</a>
-      <a href="#" class="hover:underline">Feedback Table</a>
-      <a href="#" class="hover:underline">Instructors</a>
-      <a href="#" class="hover:underline">Courses</a>
-    </nav>
-    <div class="relative">
-      <button class="focus:outline-none" (click)="settings=!settings">
-        <span class="material-icons">account_circle</span>
-      </button>
-      <!-- Dropdown for user profile -->
-      <div *ngIf="settings" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Profile</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Settings</a>
-        <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Logout</a>
-      </div>
-    </div>
-  </header>
-
   <!-- Main Content -->
   <div class="flex flex-1">
     <!-- Sidebar -->
     <aside class="w-64 bg-gray-800 text-gray-100 p-6">
       <nav class="space-y-4">
-        <a href="#" class="block py-2 px-4 bg-gray-700 rounded-lg">Dashboard</a>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded-lg">Courses</a>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded-lg">Instructors</a>
-        <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded-lg">Feedback Table</a>
+        <button (click)="navigateTo('main'); update_dashboard()" class="block py-2 px-4 rounded-lg"
+          [ngClass]="{'bg-gray-700': section === 'main'}">Dashboard</button>
+        <button (click)="navigateTo('courses'); update_course(0)" class="block py-2 px-4 hover:bg-gray-700 rounded-lg"
+          [ngClass]="{'bg-gray-700': section === 'courses'}">Courses</button>
+        <button (click)="navigateTo('instructors'); update_instructor(0)" class="block py-2 px-4 hover:bg-gray-700 rounded-lg"
+          [ngClass]="{'bg-gray-700': section === 'instructors'}">Instructors</button>
+        <button (click)="navigateTo('feedback'); update_table()" class="block py-2 px-4 hover:bg-gray-700 rounded-lg"
+          [ngClass]="{'bg-gray-700': section === 'feedback'}">Feedback Table</button>
       </nav>
     </aside>
+    <!-- Bottom Section (Tab Content) -->
+    <!-- <mat-tab-group [mat-stretch-tabs]="false"  class="shadow-xl rounded-xl bg-white w-full hidden">
+      <mat-tab label="Dashboard" > 
 
+      </mat-tab>
+      <mat-tab label="Courses">
+      </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group> -->
     <!-- Main Dashboard Content -->
-    <main class="flex flex-col bg-gray-100 gap-8 flex-1 gap-4 p-6 space-y-6 px-20">
+    <main *ngIf="section=='main'" class="flex flex-col bg-gray-100 gap-8 flex-1 gap-4 p-6 space-y-6">
       <!-- Top Metrics -->
       <div class="flex justify-center space-x-6 overflow-x-auto">
         <div class="bg-white shadow-xl rounded-lg p-4 w-1/4 min-w-max">
@@ -106,14 +96,14 @@
           <div class="bg-white shadow-md rounded-lg p-4 px-20">
             <!-- Placeholder for bar chart (Top Courses) -->
             <!-- <div class="h-full flex items-center justify-center text-gray-400">Bar Chart: Top 10 Courses</div>-->
-            <app-areachart class=""></app-areachart>
+            <app-areachart></app-areachart>
           </div>
-          
+
           <div class="bg-white shadow-md rounded-lg p-4">
             <!-- Placeholder for radial chart (Top Rated Courses) -->
             <!-- <div class="h-full flex items-center justify-center text-gray-400">Radial Chart: Top 4 Rated Courses</div> -->
             <app-radialchart></app-radialchart>
-            
+
           </div>
         </div>
 
@@ -122,7 +112,7 @@
           <div class="bg-white shadow-md rounded-lg p-4 ">
             <!-- Placeholder for doughnut chart (Feedback Distribution) -->
             <app-barchart></app-barchart>
-            
+
             <!-- <div class="h-full flex items-center justify-center text-gray-400">Doughnut Chart: Feedback Distribution</div> -->
           </div>
           <div class="bg-white shadow-md rounded-lg p-4">
@@ -133,27 +123,20 @@
         </div>
       </div>
 
-      <!-- Bottom Section (Tab Content) -->
-      <div class="bg-white shadow-md rounded-lg p-4">
-        <ul class="flex border-b">
-          <li class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Instructors</a>
-          </li>
-          <li class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 hover:text-blue-500" href="#">Courses</a>
-          </li>
-          <li class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 hover:text-blue-500" href="#">Feedback</a>
-          </li>
-        </ul>
-        <div class="p-4">
-          <!-- Placeholder for tab content -->
-          <!-- <div class="text-gray-400">Tab Content Goes Here (Instructor/Course/Feedback Details)</div> -->
-          <mat-accordion class="flex flex-col items-center mx-48">
+    </main>
+
+    <div *ngIf="section=='instructors'" class="flex flex-col bg-gray-100 gap-8 flex-1 gap-4 p-6 space-y-6 px-20">
+      <div class="p-4 flex justify-between">
+        <!-- Placeholder for tab content -->
+        <!-- <div class="text-gray-400">Tab Content Goes Here (Instructor/Course/Feedback Details)</div> -->
+        <div class="h-[80vh] overflow-scroll">
+          <mat-accordion class="flex flex-col mx-2 ">
             <mat-expansion-panel *ngFor="let instructor of instructors let i =index"
-              (opened)=" fetch_Instructor_courses(instructor); setPanelState(i, true);" (closed)="setPanelState(i, false);"
-              class="w-full mx-48">
-              <mat-expansion-panel-header class="bg-stone-100">
+              (opened)=" fetch_Instructor_courses(instructor); update_instructor(i); setPanelState(i, true);"
+              (mouseenter)="update_instructor(i)"
+              (closed)="setPanelState(i, false);" class="mx-48 ">
+              <mat-expansion-panel-header (click)="$event.stopPropagation()" class="bg-white">
+                <button>Details</button>
                 <mat-icon>expand_{{getPanelState(i) ? 'less' : 'more'}}.</mat-icon>
                 <mat-panel-title> {{instructor}} </mat-panel-title>
                 <mat-panel-description>
@@ -161,33 +144,153 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="flex flex-col">
-              <app-radarchart></app-radarchart>
-              <table mat-table [dataSource]="instructor_data" class="mat-elevation-z8">
-        
-                <!-- Name Column -->
-                <ng-container matColumnDef="Course">
-                  <th mat-header-cell *matHeaderCellDef> Formation </th>
-                  <td mat-cell *matCellDef="let element"> {{element.course}} </td>
-                </ng-container>
-        
-                <!-- Weight Column -->
-                <ng-container matColumnDef="Date">
-                  <th mat-header-cell *matHeaderCellDef> Date </th>
-                  <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="['Course','Date']"></tr>
-                <tr mat-row (click)="handle_Row(row)" *matRowDef="let row; columns: ['Course','Date'];"
-                  class="font-medium border-stone-500 border-0 rounded-xl cursor-pointer hover:border-2 hover:bg-stone-400 bg-secondary hover:bg-opacity-20 duration-200">
-                </tr>
-              </table>
-              
+                <p class="text-2xl font-medium">Liste des Formations</p>
+                <table mat-table [dataSource]="instructor_data" class="mat-elevation-z8">
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="Course">
+                    <th mat-header-cell *matHeaderCellDef> Formation </th>
+                    <td mat-cell *matCellDef="let element"> {{element.course}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="Date">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="['Course','Date']"></tr>
+                  <tr mat-row (click)="handle_Row(row)" *matRowDef="let row; columns: ['Course','Date'];"
+                    class="font-medium border-stone-500 border-0 rounded-xl cursor-pointer hover:border-2 hover:bg-stone-400 hover:bg-opacity-20 duration-200">
+                  </tr>
+                </table>
+
               </div>
             </mat-expansion-panel>
           </mat-accordion>
         </div>
+        <div id="right holder" class="w-3/5 grow">
+          <p class="text-3xl font-medium text-center">{{instructor_selected}}</p>
+          <div id="big text" class="flex justify-center w-full gap-24 ">
+            <div class="bg-white shadow-xl rounded-lg p-4 w-1/3 min-w-max">
+              <h2 class="text-gray-500 text-xl">Nombre de formations</h2>
+              <p class="text-3xl font-bold">{{instructor_courses}}</p>
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-4 w-1/3 min-w-max">
+              <h2 class="text-gray-500 text-xl">Avis</h2>
+              <p class="text-3xl font-bold">{{instructor_feedbacks}}</p>
+            </div>
+          </div>
+          <div id="charts" class="w-full flex justify-center gap-10 p-10">
+            <div class="bg-white shadow-xl rounded-xl w-1/2 flex justify-center items-center">
+              <app-radarchart></app-radarchart>
+            </div>
+            <div class="bg-white shadow-xl rounded-xl w-1/2 flex justify-center items-center">
+              <app-doughnutchart></app-doughnutchart>
+            </div>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
+
+    <div *ngIf="section=='courses'" class="flex flex-col bg-gray-100 gap-8 flex-1 gap-4 p-6 space-y-6 px-20">
+      <div class="p-4 flex justify-between">
+        <!-- Placeholder for tab content -->
+        <!-- <div class="text-gray-400">Tab Content Goes Here (Instructor/Course/Feedback Details)</div> -->
+        <div class="h-[80vh] overflow-scroll">
+          <mat-accordion class="flex flex-col mx-2 ">
+            <mat-expansion-panel *ngFor="let course of courses let i =index"
+              (opened)=" fetch_course_instructors(course); update_course(i); setPanelState(i, true);"
+              (closed)="setPanelState(i, false);" class="mx-48 "
+              (mouseenter)="update_course(i)"
+              >
+              <mat-expansion-panel-header class="bg-white">
+                <button>Details</button>
+                <mat-icon>expand_{{getPanelState(i) ? 'less' : 'more'}}.</mat-icon>
+                <mat-panel-title> {{course}} </mat-panel-title>
+                <mat-panel-description>
+                  {{course.replaceAll(' ','_')}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="flex flex-col">
+                <p class="text-2xl font-medium">Liste des Formateurs</p>
+                <table mat-table [dataSource]="course_data" class="mat-elevation-z8">
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="Course">
+                    <th mat-header-cell *matHeaderCellDef> Formateur </th>
+                    <td mat-cell *matCellDef="let element"> {{element.course}} </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="Date">
+                    <th mat-header-cell *matHeaderCellDef> Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Date}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="['Course','Date']"></tr>
+                  <tr mat-row (click)="handle_Row(row)" *matRowDef="let row; columns: ['Course','Date'];"
+                    class="font-medium border-stone-500 border-0 rounded-xl cursor-pointer hover:border-2 hover:bg-stone-400 hover:bg-opacity-20 duration-200">
+                  </tr>
+                </table>
+
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div id="right holder" class="w-3/5 grow">
+          <p class="text-3xl font-medium text-center">{{course_selected}}</p>
+          <div id="big text" class="flex justify-center  w-full gap-24 ">
+            <div class="bg-white shadow-md rounded-lg p-4 w-1/3 min-w-max">
+              <h2 class="text-gray-500 text-xl">Participation:</h2>
+              <p class="text-3xl font-bold">{{course_participation}}</p>
+            </div>
+            <div class="bg-white shadow-md rounded-lg p-4 w-1/3 min-w-max">
+              <h2 class="text-gray-500 text-xl">Avis:</h2>
+              <p class="text-3xl font-bold">{{course_feedbacks}}</p>
+            </div>
+          </div>
+          <div id="charts" class="w-full  flex justify-center gap-10 p-10">
+            <div class="bg-white shadow-xl rounded-xl w-1/2 flex justify-center items-center">
+              <app-barchart></app-barchart>
+            </div>
+            <div class="bg-white shadow-xl rounded-xl w-1/2 flex justify-center items-center">
+              <app-doughnutchart></app-doughnutchart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="section=='feedback'" class="bg-gray-100 w-full bg-gray-100 p-20">
+      <mat-form-field>
+        <mat-label>Recherche</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+      
+          <!-- Header columns -->
+          <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+            <td mat-cell *matCellDef="let row"> {{row[column]}} </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+      
+    </div>
   </div>
+
+
 
   <!-- Footer -->
   <footer class="bg-gray-800 text-gray-100 py-4 text-center">

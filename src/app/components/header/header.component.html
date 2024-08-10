@@ -1,7 +1,24 @@
-`<mat-toolbar color="primary" class="flex justify-between">
+<header
+class="bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg py-4 px-6 flex justify-between items-center">
+<img class="object-contain max-h-14 mx-10" src="http://www.cims.tn/wp-content/uploads/2020/11/logo-cims2021.png" alt="logo">
+
+<div class="relative">
+  <button class="focus:outline-none" (click)="settings=!settings">
+    <span class="material-icons">account_circle</span>
+  </button>
+  <!-- Dropdown for user profile -->
+  <div *ngIf="settings" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Profile</a>
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Settings</a>
+    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Logout</a>
+  </div>
+</div>
+</header>
+
+<!-- <mat-toolbar color="primary" class="flex justify-between">
     <img class="object-contain max-h-14 mx-10" src="http://www.cims.tn/wp-content/uploads/2020/11/logo-cims2021.png" alt="logo">
     
     <button mat-icon-button class="mx-2" aria-label="Example icon-button with menu icon" (click)="Logout()">
         <mat-icon>{{ isLoggedIn ? 'logout' : 'menu' }}</mat-icon>
       </button>
-</mat-toolbar>`
+</mat-toolbar>` -->

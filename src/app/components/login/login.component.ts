@@ -93,7 +93,10 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
           // Login successful, redirect to dashboard or other
         },
-        error: (err: any) => this.error = err.error
+        error: (err: any) => {
+          this.error = err.error
+          this.openSnackBar("An error occured");
+        }
       });
     }
     else if (["register","sign up","signup"].includes(this.option.toLocaleLowerCase())){
