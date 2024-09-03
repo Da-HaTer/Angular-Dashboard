@@ -214,7 +214,7 @@ export class DashboardComponent {
       let bc = this.barcharts.toArray()[0];
       bc.chartOptions.series = [{ name: 'Feedbacks', data: feedbacks }];
       bc.chartOptions.xaxis = { categories: columns };
-      bc.chartOptions.title = { text: 'Top 5 Courses by partiicipcation', align: 'center' };
+      bc.chartOptions.title = { text: 'Top 5 Courses by participcation', align: 'center' };
     });
     this.fetch('SELECT course_name, avg(experience_rating) as av from feedback group by course_name order by av desc limit 5;').then((data) => {
       const columns = data.map((course: { course_name: any; }) => course.course_name);
