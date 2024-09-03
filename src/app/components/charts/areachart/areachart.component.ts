@@ -72,7 +72,7 @@ export class AreachartComponent {
         horizontalAlign: "left"
       },
       title: {
-        text: "Avis Par Mois",
+        text: "Feedbacks per month",
         align: "center"
       },
       xaxis: {
@@ -100,7 +100,6 @@ export class AreachartComponent {
       baseval += 86400000;
       i++;
     }
-    console.log("series: ", series);
     return series;
   };
 
@@ -109,14 +108,13 @@ export class AreachartComponent {
     const token = localStorage.getItem('token');
     this.Autservice.request(query, token).subscribe({
       next: (data) => {
-        console.log(data);
         let ret = data.map((dt: { Date: any; count: any; }) => ([new Date(dt.Date).getTime(), dt.count]));
         // this.All.push(ret);
         this.All = ret
         this.Update_chart();
       },
       error: (error) => {
-        console.error('Error fetching instructors:', error);
+        console.error('Error fetching areachart data:', error);
       },
       complete: () => {
         console.log('Data fetching completed'); // (Optional) Log completion message
@@ -135,7 +133,7 @@ export class AreachartComponent {
         
       },
       error: (error) => {
-        console.error('Error fetching instructors:', error);
+        console.error('Error fetching areachart data:', error);
       },
       complete: () => {
         console.log('Data fetching completed'); // (Optional) Log completion message
@@ -153,7 +151,7 @@ export class AreachartComponent {
         this.Update_chart();
       },
       error: (error) => {
-        console.error('Error fetching instructors:', error);
+        console.error('Error fetching areachart data:', error);
       },
       complete: () => {
         console.log('Data fetching completed'); // (Optional) Log completion message
@@ -168,6 +166,5 @@ export class AreachartComponent {
         { name: "Total", data: this.All}
       ]
     });
-    console.log("positive: ", this.positive);
   }
 }

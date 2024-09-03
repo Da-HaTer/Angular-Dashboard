@@ -40,7 +40,6 @@ export class LoginComponent {
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl(''),
     });
-    console.log(authService.isAuthenticated());
   }  
   
   
@@ -87,8 +86,6 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe({
         next: (response: { token: string; }) => {
           localStorage.setItem('token', response.token);
-          // console.log(this.TEST("select * from feedback;",response.token));
-          console.log("authenticated:",this.authService.isAuthenticated());
           this.openSnackBar("Login successful");
           this.router.navigate(['/dashboard']);
           // Login successful, redirect to dashboard or other
@@ -101,7 +98,6 @@ export class LoginComponent {
     }
     else if (["register","sign up","signup"].includes(this.option.toLocaleLowerCase())){
       if (password !== confirmPassword) {
-        console.log(password,confirmPassword);
         this.error = 'Passwords do not match';
         return;
       }

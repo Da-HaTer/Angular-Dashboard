@@ -169,14 +169,14 @@
           </mat-accordion>
         </div>
         <div id="right holder" class="w-3/5 grow">
-          <p class="text-3xl font-medium text-center">{{instructor_selected}}</p>
+          <p class="text-3xl font-medium text-center roboto-black">{{instructor_selected}}</p>
           <div id="big text" class="flex justify-center w-full gap-24 ">
             <div class="bg-white shadow-xl rounded-lg p-4 w-1/3 min-w-max">
               <h2 class="text-gray-500 text-xl">Nombre de formations</h2>
               <p class="text-3xl font-bold">{{instructor_courses}}</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4 w-1/3 min-w-max">
-              <h2 class="text-gray-500 text-xl">Avis</h2>
+              <h2 class="text-gray-500 text-xl">Feedbacks</h2>
               <p class="text-3xl font-bold">{{instructor_feedbacks}}</p>
             </div>
           </div>
@@ -237,14 +237,14 @@
           </mat-accordion>
         </div>
         <div id="right holder" class="w-3/5 grow">
-          <p class="text-3xl font-medium text-center">{{course_selected}}</p>
+          <p class="text-3xl font-medium text-center roboto-black">{{course_selected}}</p>
           <div id="big text" class="flex justify-center  w-full gap-24 ">
             <div class="bg-white shadow-md rounded-lg p-4 w-1/3 min-w-max">
               <h2 class="text-gray-500 text-xl">Participation:</h2>
               <p class="text-3xl font-bold">{{course_participation}}</p>
             </div>
             <div class="bg-white shadow-md rounded-lg p-4 w-1/3 min-w-max">
-              <h2 class="text-gray-500 text-xl">Avis:</h2>
+              <h2 class="text-gray-500 text-xl">Feedbacks:</h2>
               <p class="text-3xl font-bold">{{course_feedbacks}}</p>
             </div>
           </div>
@@ -262,7 +262,7 @@
 
     <div *ngIf="section=='feedback'" class="bg-gray-100 w-full bg-gray-100 p-20">
       <mat-form-field>
-        <mat-label>Recherche</mat-label>
+        <mat-label>Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
       

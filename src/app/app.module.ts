@@ -21,6 +21,7 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
+import { NotFoundComponent } from './not-found/not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { MatFormFieldModule} from '@angular/material/form-field';
     DashboardComponent,
     AreachartComponent,
     RadialchartComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

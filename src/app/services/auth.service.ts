@@ -35,11 +35,10 @@ export class AuthService {
     console.log("Loggin out")
     localStorage.removeItem('token');
     this.tokenSubject.next(null);
-    console.log("authenticated:",this.isAuthenticated())
   }
 
   isAuthenticated(): boolean {
-    console.log("isAuthenticated",!!this.tokenSubject.value);
+    console.log("Authenticated",!!this.tokenSubject.value);
     return !!this.tokenSubject.value;
   }
 }

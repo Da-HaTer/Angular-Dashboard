@@ -13,9 +13,9 @@ platformBrowserDynamic().bootstrapModule(AppModule, {
 })
   .catch(err => console.error(err));
   
-  bootstrapApplication(AppComponent, {
-    providers: [
-        // provideRouter(routes),
-        provideHttpClient(), provideAnimationsAsync()
-    ]
-}).catch(err => console.error(err));
+//   bootstrapApplication(AppComponent, {
+//     providers: [
+//         // provideRouter(routes),
+//         provideHttpClient(), provideAnimationsAsync()
+//     ]
+// }).catch(err => console.error(err));

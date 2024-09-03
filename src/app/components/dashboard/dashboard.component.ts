@@ -36,7 +36,7 @@ export class DashboardComponent {
   tot_feedbacks: any;
   tot_courses: any;
   top_courses: { columns: string[]; data: number[]; } = { columns: [], data: [] };
-  section: string = 'feedback';
+  section: string = 'main';
 
   // table attributes
   displayedColumns: string[] = [];
@@ -181,8 +181,7 @@ export class DashboardComponent {
   }
 
   update_table() {
-    console.log("updating table")
-    const query = `SELECT instructor_name, course_name, employee_name, Date_Format(Date," %d-%m-%Y") as Date, format(experience_rating*100,1) as score, text from feedback;`;
+    const query = `SELECT Id, instructor_name as instructor, course_name as Course, employee_name as Employee, Date_Format(Date," %d-%m-%Y") as Date, format(experience_rating*100,1) as Score, text as Notes from feedback;`;
     this.fetch(query).then((data) => {
       console.log("datta :",data.slice(0,2));
       // let values= data.map((row: any) => Object.values(row))
@@ -215,7 +214,7 @@ export class DashboardComponent {
       let bc = this.barcharts.toArray()[0];
       bc.chartOptions.series = [{ name: 'Feedbacks', data: feedbacks }];
       bc.chartOptions.xaxis = { categories: columns };
-      bc.chartOptions.title = { text: 'Top 5 Formations par partiicipcation', align: 'center' };
+      bc.chartOptions.title = { text: 'Top 5 Courses by partiicipcation', align: 'center' };
     });
     this.fetch('SELECT course_name, avg(experience_rating) as av from feedback group by course_name order by av desc limit 5;').then((data) => {
       const columns = data.map((course: { course_name: any; }) => course.course_name);
@@ -224,7 +223,7 @@ export class DashboardComponent {
       console.log("bc", this.barcharts.toArray())
       bc.chartOptions.series = [{ name: 'Average', data: av }];
       bc.chartOptions.xaxis = { categories: columns, };
-      bc.chartOptions.title = { text: 'Top 5 formation par score Moyen', align: 'center' };
+      bc.chartOptions.title = { text: 'Top 5 courses by average score', align: 'center' };
     });
     this.fetch('Select instructor_name, avg(overall_quality) as av from feedback group by instructor_name order by av desc limit 4;').then((data) => {
       const columns = data.map((instructor: { instructor_name: any; }) => instructor.instructor_name);
@@ -232,7 +231,7 @@ export class DashboardComponent {
       let rc = this.radialchart;
       rc.chartOptions.series = score.map((value: number) => value);
       rc.chartOptions.labels = columns;
-      rc.chartOptions.title = { text: 'Top 5 Formateur par score', align: 'center' };
+      rc.chartOptions.title = { text: 'Top 5 Instructors by score', align: 'center' };
     });
 
   }
@@ -273,7 +272,11 @@ export class DashboardComponent {
   }
 
   handle_error(error: any) {
-    throw new Error('error: ', error);
+    if (error.status === 403) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
+    throw new Error('error: ', error);  
   }
   format_100(value: number): number {
     return Math.trunc(value * 100);
@@ -289,7 +292,7 @@ export class DashboardComponent {
     this.cdr.markForCheck();
   }
 
-  handle_Row(row: any): void {
+  handle_Row(row: any): void { // takes to table component with filter
     console.log(row)
   }
 }
